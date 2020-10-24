@@ -29,17 +29,17 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// ctrlCmd represents the ctrl command
-var ctrlCmd = &cobra.Command{
-	Use:   "ctrl",
-	Short: "Create a new controller using a model's name",
+// svcCmd represents the svc command
+var svcCmd = &cobra.Command{
+	Use:   "svc",
+	Short: "Create a new service using a model's name",
 	Long: `Creates a base controller module which is ready to be used in your application.`,
 	Args: cobra.MinimumNArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
-		template.ReplaceFileTemplates(args, "Controller")
+		template.ReplaceFileTemplates(args, "Service")
 	},
 }
 
 func init() {
-	rootCmd.AddCommand(ctrlCmd)
+	rootCmd.AddCommand(svcCmd)
 }
