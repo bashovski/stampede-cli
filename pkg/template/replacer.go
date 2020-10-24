@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"strings"
 )
 
 // ReplaceFileTemplates represents a method which replaces existing templates with new base modules
@@ -18,25 +19,35 @@ func ReplaceFileTemplates(templateNames []string, baseName string) {
 
 // ReplaceFileTemplate represents a method which creates a new base TypeScript module for Stampede-based project while replacing base template content
 func ReplaceFileTemplate(modelName string, baseName string) {
+
+	moduleSuffix := baseName
+	if baseName == "" {
+		moduleSuffix = "Model"
+	}
+
 	path, _ := os.Getwd()
-	srcPath := fmt.Sprintf("%s/assets/module_templates/%sTemplate.ts", path, baseName)
-	moduleCategory := english.PluralWord(2, baseName, "")
+	moduleCategory := english.PluralWord(2, moduleSuffix, "")
 	destinationPath := fmt.Sprintf("%s/%s/%s%s.ts", path, moduleCategory, modelName, baseName)
 
-	err := replace(modelName, srcPath, destinationPath)
+	srcPath := fmt.Sprintf("%s/assets/module_templates/%sTemplate.ts", path, moduleSuffix)
+
+	err := replace(modelName, moduleCategory, srcPath, destinationPath)
 	if err != nil {
 		log.Fatal("Unable to replace file template - failed at copying the template", err)
 	}
 	fmt.Println("Successfully created:", fmt.Sprintf("%s%s", modelName, baseName))
 }
 
-func replace(modelName string, srcPath string, destPath string) error {
+// replace represents a method which only replaces several template strings with the model name
+func replace(modelName string, moduleCategory string, srcPath string, destPath string) error {
 	src, err := ioutil.ReadFile(srcPath)
 	if err != nil {
 		return err
 	}
 
 	src = bytes.Replace(src, []byte("__replace_me__"), []byte(modelName), -1)
+	src = bytes.Replace(src, []byte("__replace_plural__"), []byte(strings.ToLower(moduleCategory)), -1)
+
 	if err = ioutil.WriteFile(destPath, src, 0666); err != nil {
 		return err
 	}
