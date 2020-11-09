@@ -21,10 +21,25 @@
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 	SOFTWARE.
 */
-package main
+package cmd
 
-import "github.com/bashovski/stampede-cli/cmd"
+import (
+	"github.com/bashovski/stampede-cli/pkg/template"
 
-func main() {
-	cmd.Execute()
+	"github.com/spf13/cobra"
+)
+
+// svcCmd represents the svc command
+var svcCmd = &cobra.Command{
+	Use:   "svc",
+	Short: "Create a new service using a model's name",
+	Long: `Creates a base controller module which is ready to be used in your application.`,
+	Args: cobra.MinimumNArgs(1),
+	Run: func(cmd *cobra.Command, args []string) {
+		template.ReplaceFileTemplates(args, "Service")
+	},
+}
+
+func init() {
+	rootCmd.AddCommand(svcCmd)
 }

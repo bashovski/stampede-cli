@@ -21,10 +21,29 @@
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 	SOFTWARE.
 */
-package main
+package tail
 
-import "github.com/bashovski/stampede-cli/cmd"
+import(
+	"bufio"
+	"fmt"
+	"os"
+	"os/exec"
+)
 
-func main() {
-	cmd.Execute()
+func Command(script string) {
+	path, _ := os.Getwd()
+
+	bootCmd := fmt.Sprintf("%s/%s", path, script)
+
+	tailCmd := exec.Command("bash", "-c", bootCmd)
+
+	stdout, _ := tailCmd.StdoutPipe()
+	tailCmd.Start()
+
+	scanner := bufio.NewScanner(stdout)
+	scanner.Split(bufio.ScanLines)
+	for scanner.Scan() {
+		fmt.Println(scanner.Text())
+	}
+	tailCmd.Wait()
 }
