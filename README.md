@@ -15,11 +15,12 @@
 - CLI for Stampede is instrumental for creating a new Stampede project as improves overall dev-experience by allowing you to create important modules for your next project.
 
 # Installation
-- Install stampede CLI
+
 ```shell script
-brew install stampede
+git clone https://github.com/bashovski/stampede-cli.git
+cd stampede-cli
+go install
 ```
-- Test if it works:
-```shell script
-stampede
-```
+
+Now you can run stampede-cli from ```~/go/bin/stampede-cli```.
+Note this is just temporary, and will be replaced with easier brew install soon.
