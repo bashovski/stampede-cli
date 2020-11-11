@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="Stampede" src="ui/src/assets/logo.svg" />
+  <img alt="Stampede" src="assets/logo.svg" />
 </p>
 
 <p align="center">
