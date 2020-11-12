@@ -17,9 +17,9 @@
 # Installation
 
 ```shell script
-git clone https://github.com/bashovski/stampede-cli.git
-cd stampede-cli
-go install
+brew tap bashovski/stampede
+brew install stampede
+stampede --help # Test if it works
 ```
 
 Now you can run stampede-cli from ```~/go/bin/stampede-cli```.
