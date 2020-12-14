@@ -22,5 +22,4 @@ brew install stampede
 stampede --help # Test if it works
 ```
 
-Now you can run stampede-cli from ```~/go/bin/stampede-cli```.
-Note this is just temporary, and will be replaced with easier brew install soon.
+Now you can run stampede-cli: ```stampede --help```.
