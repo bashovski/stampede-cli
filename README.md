@@ -22,4 +22,16 @@ brew install stampede
 stampede --help # Test if it works
 ```
 
+## Building From Source
+
+Prerequisite: Install Go
+
+```
+git clone https://github.com/bashovski/stampede-cli.git
+cd stampede-cli
+go mod init bashovski/stampede-cli
+go build
+sudo mv stampede-cli /usr/local/bin/stampede
+```
+
 Now you can run stampede-cli: ```stampede --help```.
